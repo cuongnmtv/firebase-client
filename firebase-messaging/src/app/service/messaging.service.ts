@@ -27,10 +27,13 @@ export class MessagingService {
       (payload: any) => {
         console.log("new message received. ", payload);
         this.currentMessage.next(payload);
-        this.showCustomNotification(payload);
+        //this.showCustomNotification(payload);
       })
   }
-
+  getTokenFCM() {
+    return this.angularFireMessaging.getToken;
+  }
+  /*
   showCustomNotification(payload: any) {
     let notify_data = payload['notification'];
     let title = notify_data['title'];
@@ -48,4 +51,5 @@ export class MessagingService {
       window.open('https://www.google.com','_blank');
     }
   }
+  */
 }

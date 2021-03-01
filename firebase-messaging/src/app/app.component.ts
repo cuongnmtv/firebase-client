@@ -8,9 +8,9 @@ import { MessagingService } from './service/messaging.service';
 })
 export class AppComponent {
   title = 'firebase-messaging';
-  notifications: {title: string, body: string}[] = [];
+  notifications: { title: string, body: string }[] = [];
   message;
-  
+  token;
   constructor(private messagingService: MessagingService) { }
 
   ngOnInit() {
@@ -18,5 +18,11 @@ export class AppComponent {
     this.messagingService.requestPermission();
     this.messagingService.receiveMessage();
     this.message = this.messagingService.currentMessage;
+  }
+
+  onGetToken() {
+    this.messagingService.getTokenFCM().subscribe(token => {
+      this.token = token;
+    });
   }
 }

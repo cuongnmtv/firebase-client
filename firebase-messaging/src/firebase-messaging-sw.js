@@ -21,19 +21,25 @@ firebase.initializeApp({
 // messages.
 const messaging = firebase.messaging();
 
-console.log('get token from we push notify cccc');
-messaging.getToken({}).then((currentToken) => {
-    console.log(currentToken);
-    if (currentToken) {
-        // Send the token to your server and update the UI if necessary
-        console.log('Send the token to your server and update the UI if necessary.');
-        // ...
-    } else {
-        // Show permission request UI
-        console.log('No registration token available. Request permission to generate one.');
-        // ...
-    }
-}).catch((err) => {
-    console.log('An error occurred while retrieving token. ', err);
-    // ...
+// If you would like to customize notifications that are received in the
+// background (Web app is closed or not in browser focus) then you should
+// implement this optional method.
+// Keep in mind that FCM will still show notification messages automatically 
+// and you should use data messages for custom notifications.
+// For more info see: 
+// https://firebase.google.com/docs/cloud-messaging/concept-options
+
+messaging.onBackgroundMessage((payload) => {
+    console.log('[firebase-messaging-sw.js mydemo] Received background message ', payload);
+
+    // Customize notification here
+    const notificationTitle = "myministry"
+    const notificationOptions = {
+        body: "body",
+        icon: 'assets/images/logo.png'
+    };
+
+    self.registration.showNotification(notificationTitle,
+        notificationOptions);
+
 });
