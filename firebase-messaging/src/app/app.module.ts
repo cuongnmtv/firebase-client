@@ -8,6 +8,9 @@ import { AngularFireModule } from "@angular/fire";
 import { MessagingService } from "./service/messaging.service";
 import { environment } from "../environments/environment";
 import { AsyncPipe } from "../../node_modules/@angular/common";
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from "@angular/router";
+
 @NgModule({
    declarations: [AppComponent],
    imports: [
@@ -16,7 +19,13 @@ import { AsyncPipe } from "../../node_modules/@angular/common";
       AngularFireDatabaseModule,
       AngularFireAuthModule,
       AngularFireMessagingModule,
+      HttpClientModule,
       AngularFireModule.initializeApp(environment.firebase),
+      RouterModule.forRoot(
+         [
+           { path: "", component: AppComponent}
+         ]
+       )
    ],
    providers: [MessagingService,AsyncPipe],
    bootstrap: [AppComponent]

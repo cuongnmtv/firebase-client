@@ -33,13 +33,34 @@ messaging.onBackgroundMessage((payload) => {
     console.log('[firebase-messaging-sw.js mydemo] Received background message ', payload);
 
     // Customize notification here
-    const notificationTitle = "myministry"
+    const notificationTitle = payload['data']['title']
+    const callbackUrl = payload['data']['callbackUrl']
     const notificationOptions = {
-        body: "body",
-        icon: 'assets/images/logo.png'
+        body: payload['data']['body'],
+        icon: payload['data']['logo'],
     };
 
     self.registration.showNotification(notificationTitle,
         notificationOptions);
 
+    self.addEventListener('notificationclick', function(event) {
+        let url = callbackUrl;
+        event.notification.close(); // Android needs explicit close.
+        event.waitUntil(
+            clients.matchAll({ type: 'window' }).then(windowClients => {
+                // Check if there is already a window/tab open with the target URL
+                for (var i = 0; i < windowClients.length; i++) {
+                    var client = windowClients[i];
+                    // If so, just focus it.
+                    if (client.url === url && 'focus' in client) {
+                        return client.focus();
+                    }
+                }
+                // If not, then open the target URL in a new window/tab.
+                if (clients.openWindow) {
+                    return clients.openWindow(url);
+                }
+            })
+        );
+    });
 });

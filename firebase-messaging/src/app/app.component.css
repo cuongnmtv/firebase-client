@@ -1,0 +1,43 @@
+.red {
+    color: red;
+}
+
+.green {
+    color: green;
+}
+
+.button {
+    width: 115px;
+    height: 25px;
+    background: #4E9CAF;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    line-height: 25px;
+}
+
+.button-success {
+    width: 115px;
+    height: 25px;
+    background: green;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    line-height: 25px;
+}
+
+.button-alert {
+    width: 115px;
+    height: 25px;
+    background: red;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    line-height: 25px;
+}

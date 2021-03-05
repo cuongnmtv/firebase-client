@@ -1,4 +1,19 @@
-<button type="button" (click)="onGetToken()">Get Token</button> {{ notifications.length }}
-<br> {{ message | async | json }}
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTstejiKQ9lD_6QBVrp6YuuzUl48QhKNLgGoQ&usqp=CAU" alt="" (click)="addItem()" style="cursor: pointer;">
+<h1 style="color: red;">{{ count }}</h1>
 
-<hr> {{token}}
+<span style="font-weight: 100;">Danh sách thông báo      </span> <a (click)="show()" style="cursor: pointer;" class="button">Xem</a>
+<p *ngIf="listMsg.length ===0">Không có thông báo</p>
+<br><br>
+<div *ngIf="!hide">
+
+    <div *ngIf="listMsg.length > 0">
+        <a style="cursor: pointer;" class="button-success" (click)="onReadAll(listMsg)">Đánh dấu đọc tất cả thông báo</a>
+        <a style="cursor: pointer;" class="button-alert" (click)="onRemoveAll(listMsg)">Xoá tất cả thông báo</a>
+        <div *ngFor="let msg of listMsg; let i = index">
+            <p [ngStyle]="{color: msg.seen === true ? 'green' : 'red'}">{{ i + 1 }} | {{ msg.title }} | {{ msg.body }}</p>
+            <button (click)="onRead(msg.notifyCode, msg.id)">Đánh dấu đã đọc</button>
+            <button (click)="onRemove(msg.notifyCode, msg.id)">Xóa thông báo</button>
+            <hr>
+        </div>
+    </div>
+</div>
